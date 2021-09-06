@@ -33,13 +33,11 @@ void ofApp::setup() {
 
 	for (int i = 0; i < num_slimes1; ++i) {
 
-		/*
 		// Random initial pos and vel
 		ofVec2f pos = ofVec2f(ofRandom(0, ofGetWidth()),
-			ofRandom(0, ofGetHeight()));
+							  ofRandom(0, ofGetHeight()));
 		ofVec2f vel = ofVec2f(ofRandom(-5, 5),
-			ofRandom(-5, 5));
-		*/
+							  ofRandom(-5, 5));
 
 		/*
 		// Grid-like initial pos and constant initial vel
@@ -47,10 +45,12 @@ void ofApp::setup() {
 		ofVec2f vel = ofVec2f(2, -2);
 		*/
 
+		/*
 		// Elliptic initial pos and vel
 		float init_rad1 = 50;
 		ofVec2f pos = ofVec2f(init_rad1 * cosf(44.0 / 7.0 * float(i) / float(num_slimes1)) + ofGetWidth() / 2, init_rad1 / 2.0 * sinf(44.0 / 7.0 * float(i) / float(num_slimes1)) + ofGetHeight() / 2);
 		ofVec2f vel = 3 * ofVec2f(cosf(44.0 / 7.0 * float(i) / float(num_slimes1)), sinf(44.0 / 7.0 * float(i) / float(num_slimes1)));
+		*/
 
 		slime s = slime(pos, vel, slimes1.s_ang, slimes1.s_dis, slimes1.s_rad);
 		slimes1.vec.push_back(s);
@@ -73,13 +73,11 @@ void ofApp::setup() {
 
 	for (int i = 0; i < num_slimes2; ++i) {
 
-		/*
 		// Random initial pos and vel
 		ofVec2f pos = ofVec2f(ofRandom(0, ofGetWidth()),
 							  ofRandom(0, ofGetHeight()));
-		ofVec2f vel = ofVec2f(ofRandom(-10, 10),
-							  ofRandom(-10, 10));
-		*/
+		ofVec2f vel = ofVec2f(ofRandom(-3.5, 3.5),
+							  ofRandom(-3.5, 3.5));
 
 		/*
 		// Grid-like initial pos and constant initial vel
@@ -87,10 +85,12 @@ void ofApp::setup() {
 		ofVec2f vel = ofVec2f(2, -2);
 		*/
 
+		/*
 		// Elliptic initial pos and vel
 		float init_rad2 = 50;
 		ofVec2f pos = 0.5 * ofVec2f(init_rad2 * cosf(44.0 / 7.0 * float(i) / float(num_slimes2)) + ofGetWidth() / 2, init_rad2 / 2.0 * sinf(44.0 / 7.0 * float(i) / float(num_slimes2)) + ofGetHeight() / 2);
 		ofVec2f vel = 2 * ofVec2f(cosf(44.0 / 7.0 * float(i) / float(num_slimes2)), 0.5 * sinf(44.0 / 7.0 * float(i) / float(num_slimes2)));
+		*/
 
 		slime s = slime(pos, vel, slimes2.s_ang, slimes2.s_dis, slimes2.s_rad);
 		slimes2.vec.push_back(s);
@@ -112,13 +112,11 @@ void ofApp::setup() {
 
 	for (int i = 0; i < num_slimes2; ++i) {
 
-		/*
 		// Random initial pos and vel
 		ofVec2f pos = ofVec2f(ofRandom(0, ofGetWidth()),
 							  ofRandom(0, ofGetHeight()));
-		ofVec2f vel = ofVec2f(ofRandom(-10, 10),
-							  ofRandom(-10, 10));
-		*/
+		ofVec2f vel = ofVec2f(ofRandom(-2, 2),
+							  ofRandom(-2, 2));
 
 		/*
 		// Grid-like initial pos and constant initial vel
@@ -126,10 +124,12 @@ void ofApp::setup() {
 		ofVec2f vel = ofVec2f(2, -2);
 		*/
 
+		/*
 		// Elliptic initial pos and vel
 		float init_rad3 = 50;
 		ofVec2f pos = 1.5 * ofVec2f(init_rad3 * cosf(44.0 / 7.0 * float(i) / float(num_slimes3)) + ofGetWidth() / 2, init_rad3 / 2.0 * sinf(44.0 / 7.0 * float(i) / float(num_slimes3)) + ofGetHeight() / 2);
 		ofVec2f vel = ofVec2f(cosf(44.0 / 7.0 * float(i) / float(num_slimes3)), 0.5 * sinf(44.0 / 7.0 * float(i) / float(num_slimes3)));
+		*/
 
 		slime s = slime(pos, vel, slimes3.s_ang, slimes3.s_dis, slimes3.s_rad);
 		slimes3.vec.push_back(s);
