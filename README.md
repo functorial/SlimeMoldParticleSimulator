@@ -10,6 +10,8 @@ Different slime species may be defined, and may be programmed to interact with o
 * RED: 100 particles, fast speed, wide sensor angle, strongly attracted to itself, mildly attracted to others.
 * BLUE: 200 particles, far sensor distance, mildly attracted to itself, strongly repelled by others.
 
+The glowing effect seen in the GIFS below are the sensors drawn with low transparency. 
+
 ## Random Initial Position and Velocity
 Video recording is broken into 2 GIFs at 20 frames per second.
 <p align="center">
