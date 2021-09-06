@@ -11,12 +11,14 @@ Different slime species may be defined, and may be programmed to interact with o
 * BLUE: 200 particles, far sensor distance, mildly attracted to itself, strongly repelled by others.
 
 ## Random Initial Position and Velocity
+Video recording is broken into 2 GIFs at 20 frames per second.
 <p align="center">
     <img src="example11.gif"/>
     <img src="example12.gif"/>
 </p>
 
 ## Elliptic Initial Position and Velocity
+Video recording is broken into 3 GIFs at 20 frames per second.
 <p align="center">
     <img src="example21.gif"/>
     <img src="example22.gif"/>
