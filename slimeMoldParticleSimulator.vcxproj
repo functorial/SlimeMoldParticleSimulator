@@ -180,11 +180,17 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="sensor.cpp" />
+    <ClCompile Include="slime.cpp" />
+    <ClCompile Include="slimeSystem.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
     <ClCompile Include="..\..\..\addons\ofxFFmpegRecorder-master\src\ofxFFmpegRecorder.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="sensor.h" />
+    <ClInclude Include="slime.h" />
+    <ClInclude Include="slimeSystem.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\addons\ofxFFmpegRecorder-master\src\ofxFFmpegRecorder.h" />
   </ItemGroup>
