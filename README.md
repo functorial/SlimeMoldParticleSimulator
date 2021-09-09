@@ -31,6 +31,6 @@ Video recording is broken into 3 GIFs at 20 frames per second.
 
 1) Install [OpenFrameworks](https://openframeworks.cc/ja/).
 2) (For recording video) Download and unzip [ofxFFmpegRecorder](https://github.com/Furkanzmc/ofxFFmpegRecorder) into the `OpenFrameworks/addons/` folder.
-3) Use the OpenFrameworks project generator to generate a project. Make sure to include the ofxFFmpeg addon.
-4) (For recording video) Download and unzip [FFmpeg](https://ffmpeg.org/). Put the ffmpeg.exe into the `bin/data/` folder of your project.
-5) Add the sensor, slime, slimeSystem, ofApp, and ofMain files here to the project.
+3) Clone this project into your `Openframeworks/apps/myApps/` folder and run.
+
+By default, the simulation will be recorded into the `bin/data/` folder. You can stop/start recording by pressing `r` during the simulation. 
