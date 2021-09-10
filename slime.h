@@ -3,9 +3,7 @@
 #include "ofMain.h"
 #include "sensor.h"
 
-class slime {
-public:
-
+struct slime {
 	slime(ofVec2f position, ofVec2f velocity, float sensor_angle, float sensor_distance, float sensor_radius);
 	slime() = default;
 

@@ -1,6 +1,106 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
+void sense_slimes(slimeSystem& system) {
+
+	for (unsigned int i = 0; i < system.vec.size(); i++) {
+		slime* s = &system.vec[i];
+
+		// Sense pheremones
+		float lsense = 0;
+		float csense = 0;
+		float rsense = 0;
+		for (unsigned int k = 0; k < system.attractSystems.size(); k++) {
+			for (unsigned int j = 0; j < (system.attractSystems[k])->vec.size(); j++) {
+				if (((system.attractSystems[k])->vec[j].pos - s->lsensor.pos).length() <= s->lsensor.rad) { lsense += 1 * system.attractStrength; }
+				if (((system.attractSystems[k])->vec[j].pos - s->csensor.pos).length() <= s->csensor.rad) { csense += 1 * system.attractStrength; }
+				if (((system.attractSystems[k])->vec[j].pos - s->rsensor.pos).length() <= s->rsensor.rad) { rsense += 1 * system.attractStrength; }
+			}
+		}
+		for (unsigned int k = 0; k < system.repelSystems.size(); k++) {
+			for (unsigned int j = 0; j < (system.repelSystems[k])->vec.size(); j++) {
+				if (((system.repelSystems[k])->vec[j].pos - s->lsensor.pos).length() <= s->lsensor.rad) { lsense -= 1 * system.repelStrength; }
+				if (((system.repelSystems[k])->vec[j].pos - s->csensor.pos).length() <= s->csensor.rad) { csense -= 1 * system.repelStrength; }
+				if (((system.repelSystems[k])->vec[j].pos - s->rsensor.pos).length() <= s->rsensor.rad) { rsense -= 1 * system.repelStrength; }
+			}
+		}
+
+		// Rotate slime based on pheremone readings
+		// Case1: Turn left
+		int n;
+		if (lsense > csense && csense >= rsense) {
+			n = 1;
+		}
+		// Case2: Turn right
+		else if (lsense <= csense && csense < rsense) {
+			n = -1;
+		}
+		/*
+		// Case3: Turn left or right randomly
+		else if (lsense > csense && csense < rsense) {
+			n = (rand() % 2) * 2 - 1;	// -1 or 1
+		}
+		*/
+		// Else: Continue in same direction
+		else {
+			n = 0;
+		}
+		s->vel.rotate(n * system.s_ang);
+		s->lsensor.pos.rotate(n * system.s_ang, s->pos);
+		s->csensor.pos.rotate(n * system.s_ang, s->pos);
+		s->rsensor.pos.rotate(n * system.s_ang, s->pos);
+	}
+}
+
+//--------------------------------------------------------------
+void move_slimes(slimeSystem& system) {
+	for (unsigned int i = 0; i < system.vec.size(); i++) {
+		slime* s = &system.vec[i];
+
+		// Move particle
+		s->pos += s->vel;
+		s->lsensor.pos += s->vel;
+		s->csensor.pos += s->vel;
+		s->rsensor.pos += s->vel;
+
+		// Bounce off sides of window by angle of incidence 
+		if (s->pos.x < 0) {
+			s->pos.x *= -1;
+			s->vel.x *= -1;
+		}
+		else if (s->pos.x >= ofGetWidth()) {
+			s->pos.x -= 2 * (s->pos.x - ofGetWidth());
+			s->vel.x *= -1;
+		}
+		if (s->pos.y < 0) {
+			s->pos.y *= -1;
+			s->vel.y *= -1;
+		}
+		else if (s->pos.y >= ofGetHeight()) {
+			s->pos.y -= 2 * (s->pos.y - ofGetHeight());
+			s->vel.y *= -1;
+		}
+
+		s->lsensor.pos = s->pos + (s->vel.getNormalized() * s->s_dis).rotate(s->s_ang);
+		s->csensor.pos = s->pos + (s->vel.getNormalized() * s->s_dis);
+		s->rsensor.pos = s->pos + (s->vel.getNormalized() * s->s_dis).rotate(-s->s_ang);
+
+	}
+}
+
+//--------------------------------------------------------------
+void draw_slimes(slimeSystem& system, int size) {
+	for (unsigned int i = 0; i < system.vec.size(); i++) {
+		ofSetColor(system.sli_col);
+		ofDrawCircle(system.vec[i].pos, size);
+		ofSetColor(system.sen_col);
+		ofDrawCircle(system.vec[i].lsensor.pos, system.vec[i].lsensor.rad);
+		ofDrawCircle(system.vec[i].csensor.pos, system.vec[i].csensor.rad);
+		ofDrawCircle(system.vec[i].rsensor.pos, system.vec[i].rsensor.rad);
+	}
+}
+
+//--------------------------------------------------------------
 void ofApp::setup() {
 	ofSetFrameRate(60);
 
@@ -56,7 +156,6 @@ void ofApp::setup() {
 		slimes1.vec.push_back(s);
 
 	}
-	//--------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Set up a slime system BLUE
 	//--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -95,7 +194,6 @@ void ofApp::setup() {
 		slime s = slime(pos, vel, slimes2.s_ang, slimes2.s_dis, slimes2.s_rad);
 		slimes2.vec.push_back(s);
 	}
-	//--------------------------------------------------------------------------------------------------------------------------------------------------
 
 	// Set up a slime system GREEN
 	//--------------------------------------------------------------------------------------------------------------------------------------------------
@@ -134,21 +232,19 @@ void ofApp::setup() {
 		slime s = slime(pos, vel, slimes3.s_ang, slimes3.s_dis, slimes3.s_rad);
 		slimes3.vec.push_back(s);
 	}
-	//--------------------------------------------------------------------------------------------------------------------------------------------------
-
 }
 
 //--------------------------------------------------------------
 void ofApp::update() {
 
-	slimes1.sense();
-	slimes1.move();
+	sense_slimes(slimes1);
+	move_slimes(slimes1);
 
-	slimes2.sense();
-	slimes2.move();
+	sense_slimes(slimes2);
+	move_slimes(slimes2);
 
-	slimes3.sense();
-	slimes3.move();
+	sense_slimes(slimes3);
+	move_slimes(slimes3);
 }
 
 //--------------------------------------------------------------
@@ -165,9 +261,9 @@ void ofApp::draw() {
 	fbo.begin();
 	ofClear(255, 255, 255, 0);
 	ofBackground(0, 0, 0);
-	slimes1.draw(2);
-	slimes2.draw(2);
-	slimes3.draw(2);
+	draw_slimes(slimes1, 2);
+	draw_slimes(slimes2, 2);
+	draw_slimes(slimes3, 2);
 	fbo.end();
 
 	fbo.draw(0, 0);
@@ -193,51 +289,3 @@ void ofApp::keyPressed(int key) {
 }
 
 //--------------------------------------------------------------
-void ofApp::keyReleased(int key) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseMoved(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseDragged(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mousePressed(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseReleased(int x, int y, int button) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseEntered(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::mouseExited(int x, int y) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::windowResized(int w, int h) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::gotMessage(ofMessage msg) {
-
-}
-
-//--------------------------------------------------------------
-void ofApp::dragEvent(ofDragInfo dragInfo) {
-
-}

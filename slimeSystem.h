@@ -2,8 +2,9 @@
 
 #include "slime.h"
 
-class slimeSystem {
-public:
+struct slimeSystem {
+	slimeSystem(vector<slime> c_vec, ofColor c_sen_col, ofColor c_sli_col, float c_s_ang, float c_s_dis, float c_s_rad, vector<slimeSystem*> c_attractSystems, vector<slimeSystem*> c_repelSystems, float c_attractStrength, float c_repelStrength);
+	slimeSystem() = default;
 
 	vector<slime> vec;
 	ofColor sen_col, sli_col;
@@ -13,9 +14,4 @@ public:
 	vector<slimeSystem*> attractSystems, repelSystems;
 	float attractStrength, repelStrength;
 
-	slimeSystem() = default;
-
-	void sense();
-	void move();
-	void draw(int size);
 };
