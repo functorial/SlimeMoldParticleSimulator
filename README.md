@@ -16,14 +16,20 @@ The glowing effect seen in the GIFS below are the sensors drawn with low transpa
 Video recording is broken into 2 GIFs at 20 frames per second.
 <p align="center">
     <img src="example11.gif"/>
-    <img src="example12.gif"/>
+</p>
+<p align="center">
+<img src="example12.gif"/>
 </p>
 
 ## Elliptic Initial Position and Velocity
 Video recording is broken into 3 GIFs at 20 frames per second.
 <p align="center">
     <img src="example21.gif"/>
+</p>
+<p align="center">
     <img src="example22.gif"/>
+</p>
+<p align="center">
     <img src="example23.gif"/>
 </p>
 
